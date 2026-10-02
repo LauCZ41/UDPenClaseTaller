@@ -6,7 +6,8 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Cliente UDP que simula un dispositivo/sensor IoT (PeerA).
- * Envía lecturas de telemetría y consultas de estado a la Estación Base (PeerB),
+ * Envía lecturas de telemetría y consultas de estado a la Estación Base
+ * (PeerB),
  * esperando una respuesta dentro de una ventana de tiempo (timeout).
  */
 public class SensorClient {
@@ -22,11 +23,12 @@ public class SensorClient {
     }
 
     /**
-     * Envía una lectura de telemetría al servidor y espera la confirmación o alerta.
+     * Envía una lectura de telemetría al servidor y espera la confirmación o
+     * alerta.
      * 
-     * @param deviceId Identificador único del dispositivo (ej. "sensor-01").
+     * @param deviceId   Identificador único del dispositivo (ej. "sensor-01").
      * @param sensorType Tipo de sensor ("TEMP", "HUMIDITY", "BATTERY").
-     * @param value Valor numérico de la lectura.
+     * @param value      Valor numérico de la lectura.
      * @return Respuesta recibida de la estación base.
      * @throws IOException Si ocurre un error de red o timeout.
      */
@@ -48,20 +50,24 @@ public class SensorClient {
     }
 
     /**
-     * Envía un mensaje en texto plano a través de UDP y espera la respuesta del servidor.
+     * Envía un mensaje en texto plano a través de UDP y espera la respuesta del
+     * servidor.
      * 
      * @param message Cadena de texto a transmitir.
      * @return Cadena de texto recibida en la respuesta.
-     * @throws SocketTimeoutException Si transcurre el tiempo límite sin recibir respuesta.
-     * @throws IOException Si ocurre un error en el socket o resolución de red.
+     * @throws SocketTimeoutException Si transcurre el tiempo límite sin recibir
+     *                                respuesta.
+     * @throws IOException            Si ocurre un error en el socket o resolución
+     *                                de red.
      */
     public String sendAndReceive(String message) throws IOException {
-        // TODO Paso 3.1: Crear un DatagramSocket (se recomienda usar bloque try-with-resources).
-        try(DatagramSocket socket = new DatagramSocket()) {
+        // TODO Paso 3.1: Crear un DatagramSocket (se recomienda usar bloque
+        // try-with-resources).
+        try (DatagramSocket socket = new DatagramSocket()) {
             socket.setSoTimeout(5000);
             InetAddress address = InetAddress.getByName(this.serverHost);
 
-            byte [] messageBytes = message.getBytes(StandardCharsets.UTF_8);
+            byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
             DatagramPacket packet = new DatagramPacket(messageBytes, messageBytes.length, address, this.serverPort);
             socket.send(packet);
 
@@ -69,26 +75,31 @@ public class SensorClient {
             DatagramPacket receivedPacket = new DatagramPacket(buffer, buffer.length);
             socket.receive(receivedPacket);
 
-            String response = new String(receivedPacket.getData(),receivedPacket.getOffset(), receivedPacket.getLength(), StandardCharsets.UTF_8).trim();
+            String response = new String(receivedPacket.getData(), receivedPacket.getOffset(),
+                    receivedPacket.getLength(), StandardCharsets.UTF_8).trim();
 
             return response;
 
-        } catch (SocketException e){
+        } catch (SocketException e) {
             return "ERORR";
         }
 
-        // TODO Paso 3.2: Configurar el tiempo de espera máximo mediante socket.setSoTimeout(this.timeoutMs).
+        // TODO Paso 3.2: Configurar el tiempo de espera máximo mediante
+        // socket.setSoTimeout(this.timeoutMs).
 
-        // TODO Paso 3.3: Convertir 'message' a bytes en UTF-8 y construir el DatagramPacket
+        // TODO Paso 3.3: Convertir 'message' a bytes en UTF-8 y construir el
+        // DatagramPacket
         // con destino InetAddress.getByName(this.serverHost) y this.serverPort.
 
         // TODO Paso 3.4: Enviar el paquete con socket.send(packet).
 
-        // TODO Paso 3.5: Crear un buffer receptor (byte[1024]) y un DatagramPacket para la respuesta.
+        // TODO Paso 3.5: Crear un buffer receptor (byte[1024]) y un DatagramPacket para
+        // la respuesta.
 
         // TODO Paso 3.6: Recibir la respuesta con socket.receive(responsePacket).
 
-        // TODO Paso 3.7: Convertir los bytes recibidos a String UTF-8 usando offset y length,
+        // TODO Paso 3.7: Convertir los bytes recibidos a String UTF-8 usando offset y
+        // length,
         // aplicar trim() y retornar la cadena resultante.
         // Reemplazar con su implementación
     }

@@ -193,3 +193,8 @@ Abra dos terminales independientes:
 | **Total** | **100%** | **13 pruebas automatizadas + Demo en vivo** |
 
 ---
+
+# Prueba de demostración interactiva
+![img.png](img.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
