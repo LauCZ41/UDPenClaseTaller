@@ -196,5 +196,7 @@ Abra dos terminales independientes:
 
 # Prueba de demostración interactiva
 ![img.png](img.png)
+
+Prueba timeout
 ![img_1.png](img_1.png)
 ![img_2.png](img_2.png)
